@@ -23,7 +23,7 @@
             overflow-x: hidden;
         }
 
-        /* 🎬 메인 헤더: 별헤는 밤 영상 */
+        /* 🖼 메인 헤더: 이미지 배경으로 변경 */
         header {
             height: 100vh;
             position: relative;
@@ -31,24 +31,25 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            /* 생성된 이미지를 배경으로 설정하거나 아래 img 태그 사용 */
+            background-color: #000;
         }
 
-        header video {
+        .header-bg {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            min-width: 100%;
-            min-height: 100%;
-            object-fit: cover;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            /* 파일명을 실제 업로드한 이미지 파일명으로 맞춰주세요 */
+            background: url('starry_sky.png') no-repeat center center;
+            background-size: cover;
+            filter: brightness(0.6) contrast(1.1);
             z-index: -1;
-            filter: brightness(0.6) contrast(1.2);
         }
 
         .overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(10,10,26,0.7) 100%);
+            background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(10,10,26,0.8) 100%);
         }
 
         header h1 {
@@ -59,6 +60,7 @@
             text-align: center;
             text-shadow: 0 10px 30px rgba(0,0,0,0.8);
             animation: fadeInDown 2.5s ease-out;
+            line-height: 1.2;
         }
 
         @keyframes fadeInDown {
@@ -79,7 +81,6 @@
             margin-bottom: 30px;
         }
 
-        /* 🎞 영상 카드 스타일 */
         .video-container {
             margin: 40px 0;
             border-radius: 20px;
@@ -93,7 +94,6 @@
             display: block;
         }
 
-        /* 📖 책 소개 카드 */
         .book {
             background: rgba(255, 255, 255, 0.03);
             padding: 50px;
@@ -101,11 +101,6 @@
             border-left: 4px solid var(--gold);
             backdrop-filter: blur(20px);
             transition: 0.5s;
-        }
-
-        .book:hover {
-            background: rgba(255, 255, 255, 0.07);
-            transform: translateY(-5px);
         }
 
         .fade {
@@ -119,21 +114,33 @@
             transform: translateY(0);
         }
 
+        /* ✨ 하단 섹션 디자인 변경 */
+        .final-section {
+            text-align: center;
+            padding: 150px 20px;
+            background: linear-gradient(to bottom, var(--dark-blue), #000);
+        }
+
         .quote {
             font-family: 'Noto Serif KR', serif;
-            font-size: 1.8rem;
-            text-align: center;
-            margin: 80px 0;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
             color: var(--soft-white);
             font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .sub-quote {
+            font-size: 1.1rem;
+            color: var(--gold);
+            letter-spacing: 0.2em;
         }
 
         footer {
             text-align: center;
-            padding: 80px;
+            padding: 50px;
             color: #444;
-            letter-spacing: 2px;
             font-size: 0.8rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
     </style>
 </head>
@@ -141,9 +148,7 @@
 <body>
 
     <header>
-        <video autoplay muted loop playsinline>
-            <source src="starry_sky.png" type="video/mp4">
-        </video>
+        <div class="header-bg"></div>
         <div class="overlay"></div>
         <h1>자연 속,<br>고흐를 읽다</h1>
     </header>
@@ -175,14 +180,9 @@
         </div>
     </section>
 
-    <section class="fade">
+    <section class="fade final-section">
         <div class="quote">"나는 별을 볼 때마다 항상 꿈을 꾼다."</div>
-        
-        <div style="max-width: 400px; margin: 0 auto;" class="video-container">
-            <video autoplay muted loop playsinline style="filter: hue-rotate(10deg);">
-                <source src="tree_roots.mp4" type="video/mp4">
-            </video>
-        </div>
+        <div class="sub-quote">VINCENT VAN GOGH</div>
     </section>
 
     <footer>
@@ -190,7 +190,6 @@
     </footer>
 
     <script>
-        // 음악 재생 인터랙션
         document.addEventListener('click', () => {
             const bgm = document.getElementById('bgm');
             if (bgm.paused) {
@@ -206,7 +205,6 @@
             }
         }, { once: true });
 
-        // 스크롤 애니메이션
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('show');
