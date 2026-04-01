@@ -12,14 +12,13 @@ body {
   color: #fff;
 }
 
-/* 🎬 공통 영상 */
+/* 🎬 영상 */
 video {
   width: 100%;
   height: 100vh;
   object-fit: cover;
 }
 
-/* 영상 섹션 */
 .video-section {
   position: relative;
 }
@@ -84,7 +83,7 @@ footer {
 
 <body>
 
-<!-- 🎬 첫 번째 영상 (별밤) -->
+<!-- 🎬 첫 영상 -->
 <div class="video-section">
   <video autoplay muted loop playsinline>
     <source src="starry-night.mp4" type="video/mp4">
@@ -118,7 +117,7 @@ footer {
   </div>
 </section>
 
-<!-- 🎬 두 번째 영상 (자연 영상) -->
+<!-- 🎬 두 번째 영상 -->
 <div class="video-section">
   <video autoplay muted loop playsinline>
     <source src="nature.mp4" type="video/mp4">
@@ -145,7 +144,7 @@ document.addEventListener('click', () => {
   bgm.play();
 });
 
-// ✨ 스크롤 등장 효과
+// ✨ 스크롤 등장
 const fades = document.querySelectorAll('.fade');
 
 window.addEventListener('scroll', () => {
