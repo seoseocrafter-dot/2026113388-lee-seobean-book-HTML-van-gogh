@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Van Gogh Nature</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Georgia', serif;
+  background: #1C1C3C;
+  color: #fff;
+}
+
+/* 🎬 영상 헤더 */
+header {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+header video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 어둡게 */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+}
+
+/* 텍스트 */
+header h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3em;
+  text-align: center;
+}
+
+/* 섹션 */
+section {
+  padding: 80px 20px;
+  max-width: 900px;
+  margin: auto;
+}
+
+/* 책 카드 */
+.book {
+  background: rgba(42,42,90,0.8);
+  padding: 30px;
+  margin-top: 30px;
+  border-left: 5px solid #FFD700;
+  backdrop-filter: blur(10px);
+  transition: 0.5s;
+}
+
+.book:hover {
+  transform: scale(1.03);
+}
+
+/* 페이드 등장 */
+.fade {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: 1s;
+}
+
+.fade.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  background: #111;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎬 영상 -->
+<header>
+  <video autoplay muted loop playsinline>
+    <source src="starry-night.mp4" type="video/mp4">
+  </video>
+  <div class="overlay"></div>
+  <h1>자연 속, 고흐를 읽다</h1>
+</header>
+
+<!-- 🎧 음악 -->
+<audio id="bgm" src="bgm.mp3" loop></audio>
+
+<section class="fade">
+  <h2>고흐와 자연</h2>
+  <p>
+    [빈센트 반 고흐](chatgpt://generic-entity?number=0)는 자연을 감정의 언어로 표현했다.
+    그의 하늘과 들판은 살아 움직인다.
+  </p>
+</section>
+
+<section class="fade">
+  <h2>추천 책</h2>
+
+  <div class="book">
+    <h3>[반 고흐, 영혼의 편지](chatgpt://generic-entity?number=1)</h3>
+    <p>
+      고흐가 동생 테오에게 보낸 편지 속에는  
+      자연과 고통, 그리고 예술에 대한 깊은 감정이 담겨 있다.
+    </p>
+  </div>
+</section>
+
+<section class="fade">
+  <h2>고흐의 한마디</h2>
+  <p>"나는 자연을 통해 감정을 표현한다."</p>
+</section>
+
+<footer>
+  <p>© Van Gogh Nature Project</p>
+</footer>
+
+<script>
+// 🎧 클릭하면 음악 재생
+document.addEventListener('click', () => {
+  const bgm = document.getElementById('bgm');
+  bgm.volume = 0.3;
+  bgm.play();
+});
+
+// ✨ 스크롤 등장 효과
+const fades = document.querySelectorAll('.fade');
+
+window.addEventListener('scroll', () => {
+  fades.forEach(el => {
+    const top = el.getBoundingClientRect().top;
+    if (top < window.innerHeight - 100) {
+      el.classList.add('show');
+    }
+  });
+});
+</script>
+
+</body>
+</html>
