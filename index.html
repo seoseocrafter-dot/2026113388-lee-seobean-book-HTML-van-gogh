@@ -1,438 +1,235 @@
- <!DOCTYPE html>
-
+<!DOCTYPE html>
 <html lang="ko">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Van Gogh: Nature & Soul</title>
-
 
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;600&family=Pretendard:wght@300;500&display=swap" rel="stylesheet">
 
-
     <style>
-
         :root {
-
             --gold: #FFD700;
-
             --dark-blue: #0A0A1A;
-
             --soft-white: #f5f5f5;
-
         }
-
 
         body {
-
             margin: 0;
-
             font-family: 'Pretendard', sans-serif;
-
             background: var(--dark-blue);
-
             color: var(--soft-white);
-
             line-height: 1.8;
-
             overflow-x: hidden;
-
         }
-
 
         /* 🎬 역동적인 영상 헤더 */
-
         header {
-
             height: 100vh;
-
             position: relative;
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
             overflow: hidden;
-
         }
-
 
         header video {
-
             position: absolute;
-
             top: 50%;
-
             left: 50%;
-
             transform: translate(-50%, -50%);
-
             min-width: 100%;
-
             min-height: 100%;
-
             width: auto;
-
             height: auto;
-
             object-fit: cover;
-
             z-index: -1;
-
             /* 구름이 움직이는 느낌을 강조하기 위해 약간의 필터 추가 */
-
             filter: brightness(0.7) contrast(1.1);
-
         }
-
 
         .overlay {
-
             position: absolute;
-
             top: 0; left: 0; width: 100%; height: 100%;
-
             background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(10,10,26,0.8) 100%);
-
         }
-
 
         /* 타이포그래피: 세련된 명조체 적용 */
-
         header h1 {
-
             position: relative;
-
             font-family: 'Noto Serif KR', serif;
-
             font-size: clamp(2rem, 8vw, 4.5rem); /* 반응형 크기 */
-
             font-weight: 600;
-
             letter-spacing: -0.02em;
-
             text-shadow: 0 10px 30px rgba(0,0,0,0.5);
-
             animation: fadeInDown 2s ease-out;
-
         }
-
 
         @keyframes fadeInDown {
-
             from { opacity: 0; transform: translateY(-30px); }
-
             to { opacity: 1; transform: translateY(0); }
-
         }
-
 
         section {
-
             padding: 120px 20px;
-
             max-width: 800px;
-
             margin: auto;
-
         }
-
 
         h2 {
-
             font-family: 'Noto Serif KR', serif;
-
             font-size: 2rem;
-
             color: var(--gold);
-
             margin-bottom: 40px;
-
             position: relative;
-
             display: inline-block;
-
         }
-
 
         h2::after {
-
             content: '';
-
             position: absolute;
-
             bottom: -10px; left: 0;
-
             width: 40px; height: 2px;
-
             background: var(--gold);
-
         }
-
 
         p {
-
             font-size: 1.1rem;
-
             font-weight: 300;
-
             color: #ccc;
-
         }
-
 
         /* 책 카드 디자인 개선 */
-
         .book {
-
             background: rgba(255, 255, 255, 0.05);
-
             padding: 40px;
-
             margin-top: 50px;
-
             border-radius: 15px;
-
             border: 1px solid rgba(255, 215, 0, 0.2);
-
             backdrop-filter: blur(15px);
-
             transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-
         }
-
 
         .book:hover {
-
             transform: translateY(-10px);
-
             background: rgba(255, 255, 255, 0.08);
-
             border-color: var(--gold);
-
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-
         }
-
 
         .book h3 {
-
             font-family: 'Noto Serif KR', serif;
-
             color: #fff;
-
             margin-top: 0;
-
         }
-
 
         /* 페이드 등장 애니메이션 */
-
         .fade {
-
             opacity: 0;
-
             transform: translateY(50px);
-
             transition: all 1.2s ease-out;
-
         }
-
 
         .fade.show {
-
             opacity: 1;
-
             transform: translateY(0);
-
         }
-
 
         /* 인용구 스타일 */
-
         .quote {
-
             font-family: 'Noto Serif KR', serif;
-
             font-size: 1.5rem;
-
             font-style: italic;
-
             text-align: center;
-
             color: var(--soft-white);
-
             margin-top: 100px;
-
         }
-
 
         footer {
-
             text-align: center;
-
             padding: 60px;
-
             font-size: 0.9rem;
-
             color: #666;
-
             letter-spacing: 0.1em;
-
         }
-
     </style>
-
 </head>
-
 
 <body>
 
-
 <header>
-
     <video autoplay muted loop playsinline>
-
         <source src="starry-night.mp4" type="video/mp4">
-
     </video>
-
     <div class="overlay"></div>
-
     <h1>자연 속, 고흐를 읽다</h1>
-
 </header>
-
 
 <audio id="bgm" src="bgm.mp3" loop></audio>
 
-
 <section class="fade">
-
     <h2>고흐와 자연</h2>
-
     <p>
-
         빈센트 반 고흐는 자연을 단순한 풍경이 아니라 <strong>감정의 언어</strong>로 표현했습니다. 
-
         그의 캔버스 위에서 하늘과 들판은 정지된 화면이 아닌, 살아 꿈틀대며 움직이는 생명체와 같습니다.
-
     </p>
-
 </section>
 
-
 <section class="fade">
-
     <h2>추천 책</h2>
-
     <div class="book">
-
         <h3>반 고흐, 영혼의 편지</h3>
-
         <p>
-
             동생 테오에게 보낸 수많은 편지 속에는 고흐의 예술적 고뇌와 자연을 향한 지독한 사랑이 담겨 있습니다. 
-
             그의 문장 하나하나에서 별이 반짝이는 소리를 들어보세요.
-
         </p>
-
     </div>
-
 </section>
-
 
 <section class="fade">
-
     <div class="quote">
-
         "나는 자연을 통해 내 영혼의 감정을 표현한다."
-
     </div>
-
 </section>
-
 
 <footer>
-
     <p>&copy; VAN GOGH NATURE PROJECT</p>
-
 </footer>
 
-
 <script>
-
     // 🎧 클릭하면 서서히 음악 재생 (사용자 경험 개선)
-
     document.addEventListener('click', () => {
-
         const bgm = document.getElementById('bgm');
-
         if (bgm.paused) {
-
             bgm.volume = 0;
-
             bgm.play();
-
             // 페이드 인 효과
-
             let vol = 0;
-
             const fadeIn = setInterval(() => {
-
                 if (vol < 0.3) {
-
                     vol += 0.05;
-
                     bgm.volume = vol;
-
                 } else {
-
                     clearInterval(fadeIn);
-
                 }
-
             }, 200);
-
         }
-
     }, { once: true }); // 처음 한 번만 실행
 
-
     // ✨ 스크롤 감지 인터랙션
-
     const fades = document.querySelectorAll('.fade');
-
     const observerOptions = { threshold: 0.2 };
 
-
     const observer = new IntersectionObserver((entries) => {
-
         entries.forEach(entry => {
-
             if (entry.isIntersecting) {
-
                 entry.target.classList.add('show');
-
             }
-
         });
-
     }, observerOptions);
 
-
     fades.forEach(el => observer.observe(el));
-
 </script>
 
-
 </body>
-
-</html> 
+</html>
