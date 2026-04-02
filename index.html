@@ -23,13 +23,14 @@
             overflow-x: hidden;
         }
 
-        /* ✨ 배경 별 애니메이션 */
-        .stars-container {
+        /* ✨ 배경 반짝이는 별 & 별똥별 컨테이너 */
+        #stars-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0;
             pointer-events: none;
         }
+
         .star {
             position: absolute;
             background: white;
@@ -37,12 +38,31 @@
             opacity: 0.5;
             animation: twinkle var(--duration) infinite ease-in-out;
         }
+
         @keyframes twinkle {
             0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.5); }
+            50% { opacity: 1; transform: scale(1.3); }
         }
 
-        /* 🖼 메인 헤더 */
+        /* 🌠 별똥별 애니메이션 */
+        .shooting-star {
+            position: absolute;
+            width: 150px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,1), transparent);
+            z-index: 5;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes shoot {
+            0% { transform: translateX(0) translateY(0) rotate(-45deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(-600px) translateY(600px) rotate(-45deg); opacity: 0; }
+        }
+
+        /* 🎬 메인 헤더: 다시 영상으로 변경 (구름 움직임 구현) */
         header {
             height: 100vh;
             position: relative;
@@ -53,13 +73,13 @@
             z-index: 1;
         }
 
-        /* 이미지 출력 태그 */
-        .header-img {
+        header video {
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%; min-height: 100%;
             object-fit: cover;
-            filter: brightness(0.6) contrast(1.1);
+            filter: brightness(0.5) contrast(1.2);
             z-index: -1;
         }
 
@@ -75,74 +95,81 @@
             font-size: clamp(2.5rem, 10vw, 5rem);
             font-weight: 600;
             text-align: center;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            text-shadow: 0 10px 40px rgba(0,0,0,0.9);
             line-height: 1.2;
+            animation: fadeInDown 2.5s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         section {
             position: relative;
-            padding: 100px 20px;
-            max-width: 900px;
+            padding: 120px 20px;
+            max-width: 850px;
             margin: auto;
             z-index: 1;
         }
 
-        h2 { font-family: 'Noto Serif KR', serif; font-size: 2.2rem; color: var(--gold); margin-bottom: 30px; }
+        h2 { font-family: 'Noto Serif KR', serif; font-size: 2.2rem; color: var(--gold); margin-bottom: 35px; }
 
         .video-container {
-            margin: 40px 0;
-            border-radius: 20px;
+            margin: 50px 0;
+            border-radius: 25px;
             overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.7);
             border: 1px solid rgba(255,255,255,0.1);
         }
         .video-container video { width: 100%; display: block; }
 
         .book {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 50px;
-            border-radius: 20px;
-            border-left: 4px solid var(--gold);
-            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 60px;
+            border-radius: 25px;
+            border-left: 5px solid var(--gold);
+            backdrop-filter: blur(25px);
         }
 
         .fade { opacity: 0; transform: translateY(40px); transition: all 1.5s ease-out; }
         .fade.show { opacity: 1; transform: translateY(0); }
 
-        /* 🎧 플레이 버튼 스타일 */
-        #music-control {
+        /* 🎧 뮤직 컨트롤 플로팅 버튼 */
+        #music-btn {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 40px; right: 40px;
             z-index: 100;
-            background: rgba(255, 215, 0, 0.2);
+            background: rgba(255, 215, 0, 0.15);
             border: 1px solid var(--gold);
             color: var(--gold);
-            padding: 10px 20px;
-            border-radius: 30px;
+            padding: 12px 24px;
+            border-radius: 50px;
             cursor: pointer;
-            backdrop-filter: blur(10px);
-            font-family: 'Pretendard', sans-serif;
+            backdrop-filter: blur(15px);
             font-size: 0.9rem;
-            transition: 0.3s;
+            letter-spacing: 1px;
+            transition: all 0.3s;
         }
-        #music-control:hover { background: var(--gold); color: #000; }
+        #music-btn:hover { background: var(--gold); color: #000; transform: scale(1.05); }
 
-        footer { text-align: center; padding: 80px; color: #444; font-size: 0.8rem; }
+        footer { text-align: center; padding: 100px; color: #444; font-size: 0.8rem; letter-spacing: 2px; }
     </style>
 </head>
 
 <body>
 
-    <div class="stars-container" id="stars"></div>
+    <div id="stars-container"></div>
 
     <header>
-        <img src="starry_sky.png" alt="Van Gogh Starry Night" class="header-img">
+        <video autoplay muted loop playsinline>
+            <source src="starry_sky.mp4" type="video/mp4">
+        </video>
         <div class="overlay"></div>
         <h1>자연 속,<br>고흐를 읽다</h1>
     </header>
 
-    <button id="music-control">♪ Music On</button>
+    <button id="music-btn">♪ Play Music</button>
     <audio id="bgm" src="bgm.mp3" loop></audio>
 
     <section class="fade">
@@ -162,44 +189,61 @@
         </div>
     </section>
 
-    <section class="fade" style="text-align: center; padding: 150px 0;">
-        <h2 style="font-style: italic; color: white;">"나는 별을 볼 때마다 항상 꿈을 꾼다."</h2>
-        <p style="color: var(--gold);">VINCENT VAN GOGH</p>
+    <section class="fade" style="text-align: center; padding: 180px 0;">
+        <h2 style="font-style: italic; color: white; border:none; font-size: 2.5rem;">"나는 별을 볼 때마다 항상 꿈을 꾼다."</h2>
+        <p style="color: var(--gold); letter-spacing: 5px; margin-top: 20px;">VINCENT VAN GOGH</p>
     </section>
 
     <footer><p>&copy; 2026 VAN GOGH ARCHIVE PROJECT</p></footer>
 
     <script>
-        // 1. 별 생성 스크립트
-        const starsContainer = document.getElementById('stars');
-        for (let i = 0; i < 100; i++) {
+        // 1. 반짝이는 별 배경 생성
+        const container = document.getElementById('stars-container');
+        for (let i = 0; i < 120; i++) {
             const star = document.createElement('div');
             star.className = 'star';
-            const size = Math.random() * 3 + 'px';
+            const size = Math.random() * 2.5 + 'px';
             star.style.width = size;
             star.style.height = size;
             star.style.top = Math.random() * 100 + '%';
             star.style.left = Math.random() * 100 + '%';
             star.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
-            starsContainer.appendChild(star);
+            container.appendChild(star);
         }
 
-        // 2. 음악 컨트롤 버튼
+        // 2. 별똥별(Shooting Star) 생성 로직
+        function createShootingStar() {
+            const sStar = document.createElement('div');
+            sStar.className = 'shooting-star';
+            sStar.style.top = Math.random() * 40 + '%'; // 위쪽 영역에서 생성
+            sStar.style.left = Math.random() * 80 + 20 + '%'; // 오른쪽에서 왼쪽으로 가도록 시작점 설정
+            sStar.style.animation = `shoot ${Math.random() * 1 + 1}s linear forwards`;
+            container.appendChild(sStar);
+            
+            setTimeout(() => sStar.remove(), 2000);
+        }
+
+        // 4~7초 사이 랜덤하게 별똥별 발사
+        setInterval(() => {
+            if (Math.random() > 0.4) createShootingStar();
+        }, 5000);
+
+        // 3. 음악 컨트롤
         const bgm = document.getElementById('bgm');
-        const btn = document.getElementById('music-control');
+        const btn = document.getElementById('music-btn');
         
         btn.addEventListener('click', () => {
             if (bgm.paused) {
                 bgm.play();
                 bgm.volume = 0.3;
-                btn.innerText = "|| Pause";
+                btn.innerText = "|| Pause Music";
             } else {
                 bgm.pause();
-                btn.innerText = "♪ Music On";
+                btn.innerText = "♪ Play Music";
             }
         });
 
-        // 3. 스크롤 애니메이션
+        // 4. 스크롤 페이드 애니메이션
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('show');
