@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Van Gogh: Nature & Soul</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;600&family=Pretendard:wght@300;500&display=swap" rel="stylesheet">
@@ -19,203 +19,136 @@
             font-family: 'Pretendard', sans-serif;
             background: var(--dark-blue);
             color: var(--soft-white);
-            line-height: 1.8;
+            line-height: 1.6;
             overflow-x: hidden;
+            word-break: keep-all; /* 한글 단어 잘림 방지 */
         }
 
-        /* ✨ 배경 반짝이는 별 & 별똥별 컨테이너 */
+        /* ✨ 별 & 별똥별 배경 */
         #stars-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0;
             pointer-events: none;
         }
-
         .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            opacity: 0.5;
+            position: absolute; background: white; border-radius: 50%;
             animation: twinkle var(--duration) infinite ease-in-out;
         }
-
         @keyframes twinkle {
             0%, 100% { opacity: 0.3; transform: scale(1); }
             50% { opacity: 1; transform: scale(1.3); }
         }
-
         .shooting-star {
-            position: absolute;
-            width: 150px;
-            height: 2px;
-            background: linear-gradient(90deg, rgba(255,255,255,1), transparent);
-            z-index: 5;
-            opacity: 0;
-            pointer-events: none;
+            position: absolute; width: 100px; height: 1px;
+            background: linear-gradient(90deg, white, transparent);
+            z-index: 5; opacity: 0;
         }
-
         @keyframes shoot {
             0% { transform: translateX(0) translateY(0) rotate(-45deg); opacity: 0; }
             10% { opacity: 1; }
-            100% { transform: translateX(-600px) translateY(600px) rotate(-45deg); opacity: 0; }
+            100% { transform: translateX(-400px) translateY(400px) rotate(-45deg); opacity: 0; }
         }
 
-        /* 🎬 메인 헤더 */
+        /* 🎬 헤더 */
         header {
-            height: 100vh;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            z-index: 1;
+            height: 100vh; position: relative;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden; z-index: 1;
         }
-
         header video {
-            position: absolute;
-            top: 50%; left: 50%;
+            position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             min-width: 100%; min-height: 100%;
-            object-fit: cover;
-            filter: brightness(0.5) contrast(1.2);
+            object-fit: cover; filter: brightness(0.5);
             z-index: -1;
         }
-
         .overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(10,10,26,0.8) 100%);
         }
-
         header h1 {
-            position: relative;
             font-family: 'Noto Serif KR', serif;
-            font-size: clamp(2.5rem, 10vw, 5rem);
-            font-weight: 600;
-            text-align: center;
-            text-shadow: 0 10px 40px rgba(0,0,0,0.9);
-            line-height: 1.2;
-            animation: fadeInDown 2.5s ease-out;
+            font-size: clamp(2rem, 8vw, 4.5rem);
+            text-align: center; line-height: 1.3;
+            text-shadow: 0 5px 20px rgba(0,0,0,0.8);
         }
 
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        /* 📦 섹션 공통 */
         section {
-            position: relative;
-            padding: 120px 20px;
-            max-width: 850px;
-            margin: auto;
-            z-index: 1;
+            position: relative; padding: 80px 24px;
+            max-width: 800px; margin: auto; z-index: 1;
         }
-
-        h2 { font-family: 'Noto Serif KR', serif; font-size: 2.2rem; color: var(--gold); margin-bottom: 35px; }
+        h2 { font-family: 'Noto Serif KR', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 25px; }
 
         .video-container {
-            margin: 50px 0;
-            border-radius: 25px;
-            overflow: hidden;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.7);
-            border: 1px solid rgba(255,255,255,0.1);
+            margin: 30px 0; border-radius: 20px; overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
         }
         .video-container video { width: 100%; display: block; }
 
-        /* 📖 책 섹션 커스텀 (클릭 유도) */
+        /* 📖 책 섹션 (아이폰 대응) */
         .book {
-            background: rgba(255, 255, 255, 0.04);
-            padding: 60px;
-            border-radius: 25px;
-            border-left: 5px solid var(--gold);
-            backdrop-filter: blur(25px);
-            cursor: pointer;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px 30px; border-radius: 20px;
+            border-left: 4px solid var(--gold);
+            backdrop-filter: blur(15px);
+            cursor: pointer; transition: 0.3s;
         }
+        .book:active { transform: scale(0.98); } /* 모바일 터치 피드백 */
 
-        .book:hover {
-            transform: scale(1.02);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .book::after {
-            content: "클릭하여 자세히 보기";
-            position: absolute;
-            bottom: 20px; right: 30px;
-            font-size: 0.8rem;
-            color: var(--gold);
-            opacity: 0.6;
-        }
-
-        /* 🖼 책 상세 팝업 (모달) */
+        /* 🖼 모달 팝업 최적화 */
         #book-modal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(10, 10, 26, 0.98);
-            z-index: 1000;
-            display: none; /* 기본은 숨김 */
-            align-items: center;
-            justify-content: center;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 5, 15, 0.98);
+            z-index: 1000; display: none;
+            align-items: center; justify-content: center;
             backdrop-filter: blur(20px);
+            padding: 20px; box-sizing: border-box;
         }
-
         .modal-content {
-            max-width: 900px;
-            width: 90%;
-            display: flex;
-            gap: 40px;
-            align-items: center;
-            flex-wrap: wrap;
-            animation: modalFade 0.5s ease;
+            width: 100%; max-width: 700px;
+            display: flex; flex-direction: column; /* 모바일 우선 세로 배치 */
+            align-items: center; gap: 30px;
+            overflow-y: auto; max-height: 90vh; /* 긴 내용 대응 */
         }
-
-        @keyframes modalFade {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         .modal-img {
-            width: 300px;
-            border-radius: 15px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            width: 200px; border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-
-        .modal-text { flex: 1; min-width: 300px; }
-        .modal-text h3 { font-family: 'Noto Serif KR', serif; font-size: 2.5rem; color: var(--gold); margin: 0 0 20px 0; }
-        .modal-text p { font-size: 1.1rem; color: #ccc; }
+        .modal-text { text-align: center; }
+        .modal-text h3 { font-family: 'Noto Serif KR', serif; font-size: 1.8rem; color: var(--gold); margin-bottom: 15px; }
+        .modal-text p { font-size: 1rem; color: #ddd; line-height: 1.7; }
 
         .close-btn {
-            position: absolute;
-            top: 40px; right: 40px;
-            font-size: 2rem;
-            color: var(--gold);
-            cursor: pointer;
+            position: absolute; top: 20px; right: 25px;
+            font-size: 2.5rem; color: var(--gold); cursor: pointer;
             background: none; border: none;
         }
 
-        .fade { opacity: 0; transform: translateY(40px); transition: all 1.5s ease-out; }
-        .fade.show { opacity: 1; transform: translateY(0); }
-
+        /* 🎧 뮤직 버튼 (아이폰 하단 바 간섭 피하기) */
         #music-btn {
-            position: fixed;
-            bottom: 40px; right: 40px;
-            z-index: 100;
-            background: rgba(255, 215, 0, 0.15);
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            padding: 12px 24px;
-            border-radius: 50px;
-            cursor: pointer;
-            backdrop-filter: blur(15px);
-            font-size: 0.9rem;
-            transition: 0.3s;
+            position: fixed; bottom: 30px; right: 20px;
+            z-index: 100; background: rgba(255, 215, 0, 0.2);
+            border: 1px solid var(--gold); color: var(--gold);
+            padding: 10px 18px; border-radius: 50px;
+            backdrop-filter: blur(10px); font-size: 0.8rem;
         }
 
-        footer { text-align: center; padding: 100px; color: #444; font-size: 0.8rem; }
+        .fade { opacity: 0; transform: translateY(30px); transition: 1.2s; }
+        .fade.show { opacity: 1; transform: translateY(0); }
+
+        footer { text-align: center; padding: 60px 20px; color: #555; font-size: 0.75rem; }
+
+        /* 📱 데스크탑 전용 (화면이 넓을 때만 가로 배치) */
+        @media (min-width: 768px) {
+            .modal-content { flex-direction: row; text-align: left; }
+            .modal-img { width: 260px; }
+            h2 { font-size: 2.2rem; }
+            section { padding: 120px 20px; }
+        }
     </style>
 </head>
-
 <body>
 
     <div id="stars-container"></div>
@@ -228,9 +161,7 @@
                 <h3>반 고흐, 영혼의 편지</h3>
                 <p>
                     "나는 내 예술로 사람들을 어루만지고 싶다."<br><br>
-                    지독한 가난과 고독 속에서도 예술에 대한 희망을 놓지 않았던 빈센트. 
-                    동생 테오와 주고받은 700여 통의 편지는 그의 영혼이 담긴 기록입니다.
-                    그의 치열한 삶과 예술 철학을 이 책을 통해 만나보세요.
+                    지독한 가난과 고독 속에서도 예술에 대한 희망을 놓지 않았던 빈센트의 치열한 기록을 만나보세요.
                 </p>
             </div>
         </div>
@@ -249,7 +180,7 @@
 
     <section class="fade">
         <h2>고흐와 자연</h2>
-        <p>빈센트 반 고흐에게 자연은 단순한 관찰의 대상이 아니었습니다. 요동치는 하늘과 바람에 흔들리는 들판을 통해 자신의 가장 깊은 감정을 쏟아냈습니다.</p>
+        <p>빈센트 반 고흐에게 자연은 단순한 관찰의 대상이 아니었습니다. 요동치는 하늘과 들판을 통해 자신의 가장 깊은 감정을 쏟아냈습니다.</p>
         <div class="video-container">
             <video autoplay muted loop playsinline>
                 <source src="nature.mp4" type="video/mp4">
@@ -260,24 +191,23 @@
     <section class="fade">
         <div class="book" onclick="openModal()">
             <h2>영혼의 편지</h2>
-            <p>"결국 우리는 우리 자신의 영혼을 일깨워야 한다."<br><br>동생 테오와 나눈 편지 속에는 예술을 향한 갈망이 생생하게 담겨 있습니다.</p>
+            <p>"결국 우리는 우리 자신의 영혼을 일깨워야 한다."<br><br>동생 테오와 나눈 편지 속 예술을 향한 갈망이 담겨 있습니다. (탭하여 보기)</p>
         </div>
     </section>
 
-    <section class="fade" style="text-align: center; padding: 180px 0;">
-        <h2 style="font-style: italic; color: white; border:none; font-size: 2.5rem;">"나는 별을 볼 때마다 항상 꿈을 꾼다."</h2>
-        <p style="color: var(--gold); letter-spacing: 5px; margin-top: 20px;">VINCENT VAN GOGH</p>
+    <section class="fade" style="text-align: center; padding: 150px 20px;">
+        <h2 style="font-style: italic; color: white; font-size: 1.8rem;">"나는 별을 볼 때마다 항상 꿈을 꾼다."</h2>
+        <p style="color: var(--gold); letter-spacing: 3px;">VINCENT VAN GOGH</p>
     </section>
 
-    <footer><p>&copy; 2026 VAN GOGH ARCHIVE PROJECT</p></footer>
+    <footer><p>&copy; 2026 VAN GOGH ARCHIVE</p></footer>
 
     <script>
-        // 1. 별 및 별똥별 로직
         const container = document.getElementById('stars-container');
-        for (let i = 0; i < 120; i++) {
+        for (let i = 0; i < 80; i++) {
             const star = document.createElement('div');
             star.className = 'star';
-            const size = Math.random() * 2.5 + 'px';
+            const size = Math.random() * 2 + 'px';
             star.style.width = size; star.style.height = size;
             star.style.top = Math.random() * 100 + '%';
             star.style.left = Math.random() * 100 + '%';
@@ -289,32 +219,29 @@
             const sStar = document.createElement('div');
             sStar.className = 'shooting-star';
             sStar.style.top = Math.random() * 40 + '%';
-            sStar.style.left = Math.random() * 80 + 20 + '%';
+            sStar.style.left = Math.random() * 90 + '%';
             sStar.style.animation = `shoot ${Math.random() * 1 + 1}s linear forwards`;
             container.appendChild(sStar);
             setTimeout(() => sStar.remove(), 2000);
         }
-        setInterval(() => { if (Math.random() > 0.4) createShootingStar(); }, 5000);
+        setInterval(() => { if (Math.random() > 0.4) createShootingStar(); }, 6000);
 
-        // 2. 모달 제어 함수
         function openModal() {
             document.getElementById('book-modal').style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // 배경 스크롤 방지
+            document.body.style.overflow = 'hidden';
         }
         function closeModal() {
             document.getElementById('book-modal').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
 
-        // 3. 음악 컨트롤
         const bgm = document.getElementById('bgm');
         const btn = document.getElementById('music-btn');
         btn.addEventListener('click', () => {
-            if (bgm.paused) { bgm.play(); bgm.volume = 0.3; btn.innerText = "|| Pause Music"; }
-            else { bgm.pause(); btn.innerText = "♪ Play Music"; }
+            if (bgm.paused) { bgm.play(); bgm.volume = 0.3; btn.innerText = "|| Pause"; }
+            else { bgm.pause(); btn.innerText = "♪ Play"; }
         });
 
-        // 4. 스크롤 애니메이션
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('show'); });
         }, { threshold: 0.1 });
